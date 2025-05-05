@@ -54,8 +54,10 @@ function App() {
       <h1>Dictionary</h1>
 
       <form id="dictionary-form">
-        <input id="word" type="text" name="word" placeholder="Enter a word" required />
-        <button type="button" onClick={getWordData}>Define</button>
+        <div className='inputs'>
+          <input id="word" type="text" name="word" placeholder="Enter a word" required />
+          <button type="button" onClick={getWordData}>Define</button>
+        </div>
         <Error message={errorMessage} />
       </form>
 
