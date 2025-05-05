@@ -140,3 +140,59 @@ input {
   opacity: 0;
   animation: move-up 1s ease forwards;
 }
+
+/* Spinner */
+.spinner {
+  --cont-width: 80px;
+  --ball-width: 15px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-inline: auto;
+  width: var(--cont-width);
+  aspect-ratio: 3/1;
+
+  .middle {
+    position: absolute;
+    left: 0;
+    width: var(--ball-width);
+    height: var(--ball-width);
+    border-radius: 100vh;
+    background-color: crimson;
+    box-shadow: 2px 2px 5px 0px grey;
+    animation: spinner-middle 2000ms linear infinite alternate forwards;
+  }
+}
+
+@keyframes spinner-middle {
+  0% {
+    left: 0;
+  }
+
+  25% {
+    left: 0;
+    width: var(--ball-width);
+    height: var(--ball-width);
+  }
+
+  40% {
+    width: calc(var(--ball-width) * 2);
+    height: 5px;
+  }
+
+  60% {
+    width: calc(var(--ball-width) * 2);
+    height: 5px;
+  }
+
+  75% {
+    left: calc(var(--cont-width) - var(--ball-width));
+    width: var(--ball-width);
+    height: var(--ball-width);
+  }
+
+  100% {
+    left: calc(var(--cont-width) - var(--ball-width));
+  }
+}

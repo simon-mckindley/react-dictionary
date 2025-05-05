@@ -1,21 +1,26 @@
-import { useState } from 'react'
-import './App.css'
-import Result from './components/Result.jsx'
-import Error from './components/Error.jsx'
+import { useState } from 'react';
+import './App.css';
+import Result from './components/Result.jsx';
+import Error from './components/Error.jsx';
+import Spinner from './components/Spinner';
 
 function App() {
   const [errorMessage, setErrorMessage] = useState('')
+  const [loading, setLoading] = useState(false)
   const [word, setWord] = useState('')
   const [phonetics, setPhonetics] = useState([])
   const [meanings, setMeanings] = useState([])
 
-  const input = document.getElementById("word");
 
-  const getWordData = async () => {
+  const getWordData = async (e) => {
+    e.preventDefault(); // Prevent the form from submitting and refreshing the page
+
     setErrorMessage(''); // Clear previous error message
     setWord('');
     setPhonetics([]);
     setMeanings([]);
+
+    const input = document.getElementById("word");
 
     // Get the word from the input field
     let wordInput = input.value.trim().toLowerCase();
@@ -31,6 +36,8 @@ function App() {
     }
 
     try {
+      setLoading(true);
+      // Fetch the word data from the API
       const response = await fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + wordInput);
 
       if (!response.ok) {
@@ -43,23 +50,28 @@ function App() {
       setPhonetics(data[0].phonetics);
       setMeanings(data[0].meanings);
       input.value = "";
+
     } catch (err) {
       console.log(err.message);
       setErrorMessage("Word not found");
     }
+
+    setLoading(false);
   }
 
   return (
     <>
       <h1>Dictionary</h1>
 
-      <form id="dictionary-form">
+      <form id="dictionary-form" onSubmit={getWordData}>
         <div className='inputs'>
-          <input id="word" type="text" name="word" placeholder="Enter a word" required />
-          <button type="button" onClick={getWordData}>Define</button>
+          <input id="word" type="text" name="word" placeholder="Enter a word" />
+          <button type="submit" >Define</button>
         </div>
         <Error message={errorMessage} />
       </form>
+
+      {loading && <Spinner />}
 
       <Result word={word} phonetics={phonetics} meanings={meanings} />
     </>
