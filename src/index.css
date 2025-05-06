@@ -145,8 +145,14 @@ input {
   box-shadow: 1px 1px 5px 0px var(--shadow-light);
   transition: background-color 300ms ease;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: var(--shadow-light);
+  }
+
+  &:disabled {
+    color: var(--black);
+    cursor: auto;
+    box-shadow: none;
   }
 }
 

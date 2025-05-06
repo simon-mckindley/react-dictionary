@@ -8,8 +8,22 @@ const Definition = ({ definitions }) => {
 }
 
 const ClickableWord = ({ word }) => {
+    const hasSpace = word.includes(" ") || word.includes("-");
+    const titleText = hasSpace ? "" : "Define " + word;
+
+    const handleClick = () => {
+        const input = document.getElementById("word");
+        input.value = word;
+        input.focus();
+    }
+
     return (
-        <button type="button" className="clickable-word" onClick={() => { }} >
+        <button
+            type="button"
+            className="clickable-word"
+            onClick={handleClick}
+            disabled={hasSpace}
+            title={titleText}>
             {word}
         </button>
     );

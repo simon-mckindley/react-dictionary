@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import Result from './components/Result.jsx';
-import Error from './components/Error.jsx';
+import Result from './components/Result';
+import Error from './components/Error';
 import Spinner from './components/Spinner';
 
 function App() {
