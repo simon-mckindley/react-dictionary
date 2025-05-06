@@ -50,6 +50,7 @@ function App() {
       setPhonetics(data[0].phonetics);
       setMeanings(data[0].meanings);
       input.value = "";
+      input.blur();
 
     } catch (err) {
       console.log(err.message);
