@@ -1,9 +1,17 @@
 
-const Definition = ({ def }) => {
+const Definition = ({ definitions }) => {
     return (
         <li className="definitions-item">
-            {def.definition}
+            {definitions.definition}
         </li>
+    );
+}
+
+const ClickableWord = ({ word }) => {
+    return (
+        <button type="button" className="clickable-word" onClick={() => { }} >
+            {word}
+        </button>
     );
 }
 
@@ -27,15 +35,27 @@ export default function Result({ word, phonetics, meanings }) {
                         <li className="meanings-item move-up" key={index}>
                             <span className="bold capitalise">{meaning.partOfSpeech}</span>:
                             <ul className="definitions">
-                                {(meaning.definitions ?? []).map((def, i) => (
-                                    <Definition def={def} key={i} />
+
+                                {(meaning.definitions ?? []).map((definitions, i) => (
+                                    <Definition definitions={definitions} key={i} />
                                 ))}
+
                                 {(meaning.synonyms ?? []).length > 0 && (
-                                    <p className="synonyms"><span className="bold">Synonyms:</span> {meaning.synonyms.join(", ")}</p>
+                                    <p className="synonyms"><span className="bold">Synonyms:</span>
+                                        {meaning.synonyms.map((synonym, s) => (
+                                            <ClickableWord word={synonym} key={s} />
+                                        ))}
+                                    </p>
                                 )}
+
                                 {(meaning.antonyms ?? []).length > 0 && (
-                                    <p className="antonyms"><span className="bold">Antonyms:</span> {meaning.antonyms.join(", ")}</p>
+                                    <p className="antonyms"><span className="bold">Antonyms:</span>
+                                        {meaning.antonyms.map((antonym, a) => (
+                                            <ClickableWord word={antonym} key={a} />
+                                        ))}
+                                    </p>
                                 )}
+
                             </ul>
                         </li>
                     ))}

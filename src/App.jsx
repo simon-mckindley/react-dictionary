@@ -66,7 +66,7 @@ function App() {
       <form id="dictionary-form" onSubmit={getWordData}>
         <div className='inputs'>
           <input id="word" type="text" name="word" placeholder="Enter a word" />
-          <button type="submit" >Define</button>
+          <button id="define-button" type="submit" >Define</button>
         </div>
         <Error message={errorMessage} />
       </form>
